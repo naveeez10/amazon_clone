@@ -44,7 +44,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
               ),
               ListTile(
-                title: const Text("Create Account"),
+                tileColor: _auth == Auth.signup
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundColor,
+                title: const Text(
+                  "Create Account",
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
                 leading: Radio(
                   activeColor: GlobalVariables.secondaryColor,
                   value: Auth.signup,
@@ -57,35 +63,57 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               if (_auth == Auth.signup)
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  color: GlobalVariables.backgroundColor,
-                  child: Form(
-                    key: _signUpformKey,
-                    child: Column(children: [
-                      CustomTextField(
-                        controller: _emailController,
-                        hintText: "Email",
+                Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      color: GlobalVariables.backgroundColor,
+                      child: Form(
+                        key: _signUpformKey,
+                        child: Column(children: [
+                          CustomTextField(
+                            controller: _emailController,
+                            hintText: "Email",
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                            controller: _passwordController,
+                            hintText: "Password",
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                            controller: _nameController,
+                            hintText: "Name",
+                          ),
+                        ]),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      CustomTextField(
-                        controller: _passwordController,
-                        hintText: "Password",
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      CustomTextField(
-                        controller: _nameController,
-                        hintText: "Name",
-                      ),
-                    ]),
-                  ),
+                    ),
+                    Container(
+                      width: 375,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100)),
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "SignUp",
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          )),
+                    ),
+                  ],
                 ),
               ListTile(
-                title: const Text("Sign In"),
+                tileColor: _auth == Auth.signin
+                    ? GlobalVariables.backgroundColor
+                    : GlobalVariables.greyBackgroundColor,
+                title: const Text(
+                  "Sign In",
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
                 leading: Radio(
                   activeColor: GlobalVariables.secondaryColor,
                   value: Auth.signin,
@@ -98,22 +126,42 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               if (_auth == Auth.signin)
-                Form(
-                  key: _signInformKey,
-                  child: Column(children: [
-                    CustomTextField(
-                      controller: _emailController,
-                      hintText: "Email",
+                Column(
+                  children: [
+                    Container(
+                      color: GlobalVariables.backgroundColor,
+                      padding: const EdgeInsets.all(8),
+                      child: Form(
+                        key: _signInformKey,
+                        child: Column(children: [
+                          CustomTextField(
+                            controller: _emailController,
+                            hintText: "Email",
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CustomTextField(
+                            controller: _passwordController,
+                            hintText: "Password",
+                          ),
+                        ]),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Container(
+                      width: 375,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100)),
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "SignIn",
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                          )),
                     ),
-                    CustomTextField(
-                      controller: _passwordController,
-                      hintText: "Password",
-                    ),
-                  ]),
-                ),
+                  ],
+                )
             ],
           ),
         ),
