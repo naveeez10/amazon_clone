@@ -1,5 +1,6 @@
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth {
@@ -22,6 +23,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final AuthService authService = AuthService();
+  final bool? temp = true;
 
   @override
   void dispose() {
@@ -29,6 +32,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
+  }
+
+  void SignUpUser() {
+    authService.SignUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text);
   }
 
   @override
@@ -98,7 +109,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100)),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_signUpformKey.currentState!.validate()) {
+                              SignUpUser();
+                            } else {}
+                          },
                           child: const Text(
                             "SignUp",
                             style: TextStyle(fontSize: 15, color: Colors.white),
