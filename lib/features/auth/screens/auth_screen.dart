@@ -42,6 +42,14 @@ class _AuthScreenState extends State<AuthScreen> {
         name: _nameController.text);
   }
 
+  void SignInUser() {
+    authService.SignInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +120,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           onPressed: () {
                             if (_signUpformKey.currentState!.validate()) {
                               SignUpUser();
-                            } else {}
+                            }
                           },
                           child: const Text(
                             "SignUp",
@@ -169,7 +177,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100)),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_signInformKey.currentState!.validate()) {
+                              SignInUser();
+                            }
+                          },
                           child: const Text(
                             "SignIn",
                             style: TextStyle(fontSize: 15, color: Colors.white),
