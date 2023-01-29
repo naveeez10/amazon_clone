@@ -1,6 +1,8 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/home/screens/home_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/auth/services/auth_service.dart';
+import 'package:amazon_clone/features/auth/widgets/bottom_bar.dart';
 import 'package:amazon_clone/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:amazon_clone/router.dart';
@@ -27,10 +29,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    authService.getUserData(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<Userprovider>(context).user.token.toString());
+    print("hi");
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Amazon Clone',
@@ -42,6 +47,8 @@ class _MyAppState extends State<MyApp> {
             appBarTheme: const AppBarTheme(
                 elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: (settings) => generateRoute(settings),
-        home: const AuthScreen());
+        home: Provider.of<Userprovider>(context).user.token.isNotEmpty
+            ? const BottomBar()
+            : const AuthScreen());
   }
 }

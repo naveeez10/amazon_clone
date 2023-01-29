@@ -3,6 +3,7 @@ import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/features/auth/home/screens/home_screen.dart';
+import 'package:amazon_clone/features/auth/widgets/bottom_bar.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -62,50 +63,57 @@ class AuthService {
             'charset': 'UTF-8'
           });
       httpErrorHandle(
-          response: response,
-          context: context,
-          onSuccess: () async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-
-            // ignore: use_build_context_synchronously
-            Provider.of<Userprovider>(context, listen: false)
-                .setUser(response.body);
-            await prefs.setString(
-                'x-auth-token', jsonDecode(response.body)['token']);
-
-            // ignore: use_build_context_synchronously
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              HomeScreen.routeName,
-              (route) => false,
-            );
-          });
-      void getUserData(
-        BuildContext context,
-      ) async {
-        try {
+        response: response,
+        context: context,
+        onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          String? token = prefs.getString('x-auth-token');
-
-          if (token == null) {
-            prefs.setString('x-auth-screen', '');
-          }
-
-          var tokenRes = await http
-              .post(Uri.parse('$url/isTokenValid'), headers: <String, String>{
-            'Content-Type': "application/json; charset=UTF-8",
-            'x-auth-token': token!,
-          });
-
-          var response = jsonDecode(tokenRes.body);
-
-          if (response == true) {
-            // implement api to get user data
-          }
-        } catch (e) {}
-      }
+          // ignore: use_build_context_synchronously
+          Provider.of<Userprovider>(context, listen: false)
+              .setUser(response.body);
+          await prefs.setString(
+              'x-auth-token', jsonDecode(response.body)['token']);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            BottomBar.routeName,
+            (route) => false,
+          );
+        },
+      );
     } catch (e) {
       showSnackbar(context, e.toString());
     }
+  }
+
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      if (token == null) {
+        prefs.setString('x-auth-screen', '');
+      }
+
+      var tokenRes = await http
+          .post(Uri.parse('$url/isTokenValid'), headers: <String, String>{
+        'Content-Type': "application/json; charset=UTF-8",
+        'x-auth-token': token!,
+      });
+
+      var response = jsonDecode(tokenRes.body);
+
+      if (response == true) {
+        var userRes = await http.get(
+          Uri.parse("$url/"),
+          headers: <String, String>{
+            'Content-Type': "application/json; charset=UTF-8",
+            'x-auth-token': token,
+          },
+        );
+        var userProvider = Provider.of<Userprovider>(context, listen: false);
+        userProvider.setUser(userRes.body);
+      }
+    } catch (e) {}
   }
 }
