@@ -34,13 +34,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<Userprovider>(context).user.token.toString());
-    print("hi");
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Amazon Clone',
         theme: ThemeData(
-            scaffoldBackgroundColor: GlobalVariables.greyBackgroundColor,
+            scaffoldBackgroundColor: GlobalVariables.backgroundColor,
             colorScheme: const ColorScheme.light(
               primary: GlobalVariables.secondaryColor,
             ),
