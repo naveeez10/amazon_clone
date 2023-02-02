@@ -19,7 +19,7 @@ class _TopButtonsState extends State<TopButtons> {
             AccountButton(text: "Turn Seller", func: () {}),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
