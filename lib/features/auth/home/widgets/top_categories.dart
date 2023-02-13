@@ -11,7 +11,8 @@ class TopCategories extends StatefulWidget {
 class _TopCategoriesState extends State<TopCategories> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.only(left: 15),
       height: 60,
       child: ListView.builder(
         itemExtent: 75,

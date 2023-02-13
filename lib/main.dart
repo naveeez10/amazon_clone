@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:amazon_clone/router.dart';
 import 'package:provider/provider.dart';
 
+import 'features/admin/screens/admin_screen.dart';
+
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
@@ -46,7 +48,9 @@ class _MyAppState extends State<MyApp> {
                 elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
         onGenerateRoute: (settings) => generateRoute(settings),
         home: Provider.of<Userprovider>(context).user.token.isNotEmpty
-            ? const BottomBar()
+            ? Provider.of<Userprovider>(context).user.type == 'user'
+                ? const BottomBar()
+                : const AdminScreen()
             : const AuthScreen());
   }
 }
