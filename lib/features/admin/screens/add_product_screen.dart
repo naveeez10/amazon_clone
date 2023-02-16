@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import '';
@@ -75,42 +76,58 @@ class _AddProductState extends State<AddProduct> {
                 const SizedBox(
                   height: 10,
                 ),
-                GestureDetector(
-                  onTap: selectImages,
-                  child: DottedBorder(
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(10),
-                    dashPattern: const [10, 4],
-                    strokeCap: StrokeCap.round,
-                    child: Container(
-                      width: double.infinity,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.folder_open,
-                            size: 40,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            'Select Product Images',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600,
+                images.isEmpty
+                    ? GestureDetector(
+                        onTap: selectImages,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: const Radius.circular(10),
+                          dashPattern: const [10, 4],
+                          strokeCap: StrokeCap.round,
+                          child: Container(
+                            width: double.infinity,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                          )
-                        ],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.folder_open,
+                                  size: 40,
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  'Select Product Images',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey.shade400,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : CarouselSlider(
+                        items: GlobalVariables.carouselImages.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Image.network(
+                                i,
+                                fit: BoxFit.cover,
+                                height: 200,
+                              );
+                            },
+                          );
+                        }).toList(),
+                        options:
+                            CarouselOptions(viewportFraction: 1, height: 200),
                       ),
-                    ),
-                  ),
-                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -162,7 +179,7 @@ class _AddProductState extends State<AddProduct> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 CustomButton(text: 'Sell', onTap: () {}),
               ],
