@@ -114,10 +114,10 @@ class _AddProductState extends State<AddProduct> {
                         ),
                       )
                     : CarouselSlider(
-                        items: GlobalVariables.carouselImages.map((i) {
+                        items: images.map((i) {
                           return Builder(
                             builder: (BuildContext context) {
-                              return Image.network(
+                              return Image.file(
                                 i,
                                 fit: BoxFit.cover,
                                 height: 200,
