@@ -24,7 +24,8 @@ class _CarouselImageState extends State<CarouselImage> {
           },
         );
       }).toList(),
-      options: CarouselOptions(viewportFraction: 1, height: 200),
+      options:
+          CarouselOptions(viewportFraction: 1, height: 200, autoPlay: true),
     );
   }
 }
