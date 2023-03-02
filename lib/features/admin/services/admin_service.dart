@@ -88,10 +88,40 @@ class AdminServices {
               );
             }
           });
-      print(productList);
     } catch (e) {
       showSnackbar(context, e.toString());
     }
     return productList;
+  }
+
+  void deleteProduct({
+    required BuildContext context,
+    required Product product,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<Userprovider>(context, listen: false);
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'charset': 'UTF-8',
+      'x-auth-token': userProvider.user.token,
+    };
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$url/admin/delete-product'),
+        headers: headers,
+        body: jsonEncode({
+          "id": product.id,
+        }),
+      );
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            onSuccess();
+          });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
   }
 }

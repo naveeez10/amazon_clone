@@ -198,7 +198,12 @@ class _AddProductState extends State<AddProduct> {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomButton(text: 'Sell', onTap: sellProduct),
+                CustomButton(
+                    text: 'Sell',
+                    onTap: () {
+                      sellProduct();
+                      setState(() {});
+                    }),
               ],
             ),
           ),
