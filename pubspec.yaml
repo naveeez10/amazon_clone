@@ -43,6 +43,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   file_picker: ^5.2.5
   cloudinary_public: ^0.20.0
+  network_info_plus: ^3.0.2
 
 dev_dependencies:
   flutter_test:

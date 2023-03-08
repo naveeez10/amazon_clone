@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../main.dart';
+
 class AuthService {
   void SignUpUser({
     required BuildContext context,

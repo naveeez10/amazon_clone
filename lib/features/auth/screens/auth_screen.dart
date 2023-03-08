@@ -58,9 +58,15 @@ class _AuthScreenState extends State<AuthScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
                 "Welcome",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               ListTile(
                 tileColor: _auth == Auth.signup
@@ -110,6 +116,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         ]),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 15,
                     ),
                     Container(
                       width: 375,
